@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"-->
+<!--        "http://mybatis.ord/dtd/mybatis-3-mapper.dtd">-->
+
+<mapper namespace ="com.project.GuestApplication.guest.dao.mybatis.ListGuestDetQueryMapper">
+
+    <select id="listGuestDet" parameterType="com.project.GuestApplication.guest.vo.GuestVO" resultMap="listguest" resultType="java.util.List">
+        SELECT SERNO, FIRSTNAME, LASTNAME, AGENO, GENDER, USERNAME, USRTYP, USRSTA FROM GUESTDETAILS
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="userId != null and userId neq ''.toString()">
+                AND SERNO = #{userId}
+            </if>
+            <if test="userName != null and userName neq ''.toString()">
+                AND USERNAME = #{userName}
+            </if>
+            <if test="firstName != null and firstName neq ''.toString()">
+                AND FIRSTNAME = #{firstName}
+            </if>
+            <if test="userStatus != null and userStatus neq ''.toString()">
+                AND USRSTA = #{userStatus}
+            </if>
+        </trim>
+    </select>
+    <resultMap id ="listguest" type="com.project.GuestApplication.guest.dao.entity.Guest">
+        <result property="serialNo" column="SERNO" jdbcType="NUMERIC"/>
+        <result property="firstName" column="FIRSTNAME" jdbcType="VARCHAR"/>
+        <result property="lastName" column="LASTNAME" jdbcType="VARCHAR"/>
+        <result property="age" column="AGENO" jdbcType="NUMERIC"/>
+        <result property="gender" column="GENDER" jdbcType="VARCHAR"/>
+        <result property="userName" column="USERNAME" jdbcType="VARCHAR"/>
+        <result property="userType" column="USRTYP" jdbcType="VARCHAR"/>
+        <result property="userStatus" column="USRSTA" jdbcType="VARCHAR"/>
+    </resultMap>
+
+
+    <select id="listImagedet" parameterType="com.project.GuestApplication.guest.vo.InputVO" resultMap="listimage" resultType="java.util.List">
+        SELECT FILNAM, FILTYP, CACHEKEY, FILEID, APPRVLSTA FROM FILEDET
+        <trim prefix="WHERE" prefixOverrides="AND | OR">
+            <if test="userId != null and userId neq ''.toString()">
+                AND FILEID = #{fileId}
+            </if>
+            <if test="userName != null and userName neq ''.toString()">
+                AND FILNAM = #{fileName}
+            </if>
+            <if test="firstName != null and firstName neq ''.toString()">
+                AND FILTYP = #{fileType}
+            </if>
+            <if test="userStatus != null and userStatus neq ''.toString()">
+                AND APPRVLSTA = #{apprvlSta}
+            </if>
+        </trim>
+    </select>
+    <resultMap id ="listImagedet" type="com.project.GuestApplication.guest.dao.entity.FileDet">
+        <result property="fileName" column="FILNAM" jdbcType="VARCHAR"/>
+        <result property="fileType" column="FILTYP" jdbcType="VARCHAR"/>
+        <result property="cacheKey" column="CACHEKEY" jdbcType="VARCHAR"/>
+        <result property="fileId" column="FILEID" jdbcType="NUMERIC"/>
+        <result property="approvalSta" column="APPRVLSTA" jdbcType="VARCHAR"/>
+    </resultMap>
+</mapper>
