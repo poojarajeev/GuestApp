@@ -1,0 +1,22 @@
+CREATE table public.guestdetails (
+    SERNO Int primary KEY ,
+    FIRSTNAME VARCHAR(20),
+    LASTNAME VARCHAR(20),
+    AGENO INT,
+    GENDER VARCHAR(20,
+    USERNAME VARCHAR(20),
+    PWDDET VARCHAR(20)
+); 
+
+
+
+CREATE table public.filedet (
+    SERNO Int  references guestdetails(serno),
+    filnam VARCHAR(20),
+    filtyp VARCHAR(20),
+    cachekey VARCHAR(500),
+    apprvlsta VARCHAR(5)
+);  
+
+
+CREATE SEQUENCE guestdetails_seq START 1 INCREMENT 1
